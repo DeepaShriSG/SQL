@@ -1,0 +1,53 @@
+SQL Task
+
+Create a database and tables to manage a simple e-commerce system. 
+
+-- Creating the database
+CREATE DATABASE ecommerce;
+USE ecommerce;
+
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    address TEXT
+);
+
+-- Inserting sample data into customers table
+INSERT INTO customers (name, email, address) VALUES
+('Alice Johnson', 'alice@example.com', '123 Elm Street'),
+('Bob Smith', 'bob@example.com', '456 Oak Avenue'),
+('Charlie Brown', 'charlie@example.com', '789 Pine Lane');
+
+
+-- Creating the products table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    description TEXT
+);
+
+
+-- Inserting sample data into products table
+INSERT INTO products (name, price, description) VALUES
+('Product A', 25.00, 'Description for Product A'),
+('Product B', 30.00, 'Description for Product B'),
+('Product C', 40.00, 'Description for Product C');
+
+
+-- Creating the orders table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
+-- Inserting sample data into orders table
+INSERT INTO orders (customer_id, order_date, total_amount) VALUES
+(1, CURDATE(), 100.00),
+(2, CURDATE() - INTERVAL 15 DAY, 150.00),
+(3, CURDATE() - INTERVAL 35 DAY, 200.00);
+
